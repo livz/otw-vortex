@@ -60,10 +60,31 @@ Username: vortex3 Password: 64ncXTvx#
 
 Level 3:
 ------------------------------------------------
+https://github.com/antoinet/vortex/tree/master/vortex03
+
+
+Test locally:
+# echo 0 > /proc/sys/kernel/randomize_va_space
+# gcc -fno-stack-protector -U_FORTIFY_SOURCE vortex3.c -o vortex3
+
+# objdump -s -j .dtors a.out 
+
+a.out:     file format elf32-i386
+
+Contents of section .dtors:
+ 8049f14 ffffffff 00000000                    ........    
+ 
 $ gdb vortex3
-gdb) x/x 0x08049540
-0x8049540 <__DTOR_END__>:	0x00000000
-(gdb) quit
+(gdb) disassemble __do_global_dtors_aux 
+...
+0x080483e5 <+21>:	mov    $0x8049f18,%ebx
+...
+(gdb) x/x 0x080483e6
+0x80483e6 <__do_global_dtors_aux+22>:	0x08049f18
+(gdb) x/x 0x08049f18
+0x8049f18 <__DTOR_END__>:	0x00000000
 
+Username: vortex4 Password: 2YmgK1=jw
 
-Username: vortex4 Password: 
+Level 4:
+------------------------------------------------
